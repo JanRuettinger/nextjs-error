@@ -7,19 +7,42 @@ import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import supabase from "@/lib/supabase-browser";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const [email, setEmail] = React.useState<string>("");
 
   async function onSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
     setIsLoading(true);
 
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
+    const { data, error } = await supabase.auth.signInWithOtp({
+      email: email,
+      options: {
+        emailRedirectTo: `${window.location.origin}/auth/callback`,
+      },
+    });
+
+    console.log(data);
+
+    if (error) {
+      console.log(error.message);
+    }
+
+    setIsLoading(false);
+  }
+
+  async function signInWithGitHub() {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "github",
+    });
+
+    if (error) {
+      console.log(error.message);
+    }
   }
 
   return (
@@ -37,6 +60,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               autoCapitalize="none"
               autoComplete="email"
               autoCorrect="off"
+              onChange={(e) => setEmail(e.target.value)}
               disabled={isLoading}
             />
           </div>
@@ -58,7 +82,12 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           </span>
         </div>
       </div>
-      <Button variant="outline" type="button" disabled={isLoading}>
+      <Button
+        variant="outline"
+        type="button"
+        disabled={isLoading}
+        onClick={signInWithGitHub}
+      >
         {isLoading ? (
           <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
         ) : (
