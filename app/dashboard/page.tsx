@@ -3,7 +3,6 @@ import { redirect } from "next/navigation";
 // import { authOptions } from "@/lib/auth";
 // import { db } from "@/lib/db";
 // import { getCurrentUser } from "@/lib/supabase-browser";
-import { EmptyPlaceholder } from "@/components/empty-placeholder";
 import { DashboardHeader } from "@/components/header";
 // import { PostCreateButton } from "@/components/post-create-button";
 // import { PostItem } from "@/components/post-item";
@@ -26,8 +25,6 @@ async function getData(token: string) {
     // This will activate the closest `error.js` Error Boundary
     throw new Error("Failed to fetch data");
   }
-
-  console.log(res);
 }
 
 export default async function DashboardPage() {
@@ -41,7 +38,7 @@ export default async function DashboardPage() {
     redirect("/login");
   }
 
-  await getData(session.access_token);
+  //   await getData(session.access_token);
 
   //   const posts = await db.post.findMany({
   //     where: {

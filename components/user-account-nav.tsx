@@ -12,12 +12,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { UserAvatar } from "@/components/user-avatar";
+import supabase from "@/lib/supabase-browser";
+import { useRouter } from "next/navigation";
 
 interface UserAccountNavProps extends React.HTMLAttributes<HTMLDivElement> {
   user: Pick<User, "name" | "image" | "email">;
 }
 
 export function UserAccountNav({ user }: UserAccountNavProps) {
+  const router = useRouter();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -52,9 +55,8 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
           className="cursor-pointer"
           onSelect={(event) => {
             event.preventDefault();
-            signOut({
-              callbackUrl: `${window.location.origin}/login`,
-            });
+            supabase.auth.signOut();
+            router.refresh();
           }}
         >
           Sign out

@@ -1,21 +1,21 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { Icons } from "@/components/icons";
-import { UserLoginForm } from "@/components/user-login-form";
+import { UserSignupForm } from "@/components/user-signup-form";
+// import supabase from "@/lib/supabase-server";
+import { redirect } from "next/navigation";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-// import supabase from "@/lib/supabase-server";
 
 export const metadata: Metadata = {
-  title: "Login",
-  description: "Login to your account",
+  title: "Signup",
+  description: "Create your account",
 };
 
-export default async function LoginPage() {
+export default async function SignupPage() {
   const supabase = createServerComponentClient({
     cookies,
   });
@@ -45,20 +45,18 @@ export default async function LoginPage() {
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
         <div className="flex flex-col space-y-2 text-center">
           <Icons.logo className="mx-auto h-6 w-6" />
-          <h1 className="text-2xl font-semibold tracking-tight">
-            Welcome back
-          </h1>
+          <h1 className="text-2xl font-semibold tracking-tight">Welcome</h1>
           <p className="text-sm text-muted-foreground">
-            Enter your email to sign in to your account
+            Enter your email to sign up your account
           </p>
         </div>
-        <UserLoginForm />
+        <UserSignupForm />
         <p className="px-8 text-center text-sm text-muted-foreground">
           <Link
-            href="/signup"
+            href="/login"
             className="hover:text-brand underline underline-offset-4"
           >
-            Don&apos;t have an account? Sign Up
+            Already have an account? Sign In
           </Link>
         </p>
       </div>
