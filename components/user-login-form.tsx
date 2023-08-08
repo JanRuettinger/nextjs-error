@@ -42,7 +42,7 @@ export function UserLoginForm({ className, ...props }: UserLoginFormProps) {
   }
 
   async function signInWithGitHub() {
-    const { data, error } = await supabase.auth.signInWithOAuth({
+    const { error } = await supabase.auth.signInWithOAuth({
       provider: "github",
     });
 
