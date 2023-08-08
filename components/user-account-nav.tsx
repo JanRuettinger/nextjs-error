@@ -53,9 +53,9 @@ export function UserAccountNav({ user }: UserAccountNavProps) {
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className="cursor-pointer"
-          onSelect={(event) => {
+          onSelect={async (event) => {
             event.preventDefault();
-            supabase.auth.signOut();
+            await supabase.auth.signOut();
             router.refresh();
           }}
         >
