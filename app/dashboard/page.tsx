@@ -57,7 +57,7 @@ export default async function DashboardPage() {
 
   return (
     <DashboardShell>
-      <DashboardHeader heading="Posts" text="Create and manage posts.">
+      <DashboardHeader heading='Posts' text='Create and manage posts.'>
         {/* <PostCreateButton /> */}
       </DashboardHeader>
       <div>Hello World</div>

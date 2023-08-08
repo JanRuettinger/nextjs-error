@@ -50,75 +50,75 @@ export function UserSignupForm({ className, ...props }: UserSignupFormProps) {
   return (
     <div className={cn("grid gap-6", className)} {...props}>
       <form onSubmit={handleSignUp}>
-        <div className="grid gap-2">
-          <div className="grid gap-4">
-            <div className="grid gap-1">
-              <Label className="" htmlFor="email">
+        <div className='grid gap-2'>
+          <div className='grid gap-4'>
+            <div className='grid gap-1'>
+              <Label className='' htmlFor='email'>
                 Email
               </Label>
               <Input
-                id="email"
-                placeholder="name@example.com"
-                type="email"
-                autoCapitalize="none"
-                autoComplete="email"
-                autoCorrect="off"
+                id='email'
+                placeholder='name@example.com'
+                type='email'
+                autoCapitalize='none'
+                autoComplete='email'
+                autoCorrect='off'
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={isLoading}
               />
             </div>
 
-            <div className="grid gap-1">
-              <Label className="" htmlFor="email">
+            <div className='grid gap-1'>
+              <Label className='' htmlFor='email'>
                 Password
               </Label>
               <Input
-                id="password"
-                placeholder=""
+                id='password'
+                placeholder=''
                 type={isPasswordVisible ? "text" : "password"}
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={isLoading}
               />
-              <Label className="flex items-center mt-2">
+              <Label className='flex items-center mt-2'>
                 <Input
-                  type="checkbox"
-                  className="mr-2 w-4 h-4"
+                  type='checkbox'
+                  className='mr-2 w-4 h-4'
                   checked={isPasswordVisible}
                   onChange={togglePasswordVisibility}
                 />
-                <span className="text-sm text-gray-600">Show password</span>
+                <span className='text-sm text-gray-600'>Show password</span>
               </Label>
             </div>
 
             <Button disabled={isLoading}>
               {isLoading && (
-                <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+                <Icons.spinner className='mr-2 h-4 w-4 animate-spin' />
               )}
               Sign Up with Email
             </Button>
           </div>
         </div>
       </form>
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t" />
+      <div className='relative'>
+        <div className='absolute inset-0 flex items-center'>
+          <span className='w-full border-t' />
         </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">
+        <div className='relative flex justify-center text-xs uppercase'>
+          <span className='bg-background px-2 text-muted-foreground'>
             Or continue with
           </span>
         </div>
       </div>
       <Button
-        variant="outline"
-        type="button"
+        variant='outline'
+        type='button'
         disabled={isLoading}
         onClick={signInWithGitHub}
       >
         {isLoading ? (
-          <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+          <Icons.spinner className='mr-2 h-4 w-4 animate-spin' />
         ) : (
-          <Icons.gitHub className="mr-2 h-4 w-4" />
+          <Icons.gitHub className='mr-2 h-4 w-4' />
         )}{" "}
         Github
       </Button>
