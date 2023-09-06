@@ -42,13 +42,24 @@ export function UserLoginForm({ className, ...props }: UserLoginFormProps) {
   }
 
   async function signInWithGitHub() {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "github",
-    });
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        queryParams: {
+          access_type: 'offline',
+          prompt: 'consent',
+        },
+        redirectTo: 'http://localhost:3000/auth/callback'
+      },
+    })
+    
 
     if (error) {
       console.log(error.message);
     }
+
+    console.log(data)
+    // router.refresh();
   }
 
   return (
@@ -122,7 +133,7 @@ export function UserLoginForm({ className, ...props }: UserLoginFormProps) {
         ) : (
           <Icons.gitHub className='mr-2 h-4 w-4' />
         )}{" "}
-        Github
+        Google
       </Button>
     </div>
   );

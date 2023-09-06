@@ -27,6 +27,8 @@ export default async function DashboardLayout({
     redirect("/login");
   }
 
+  console.log(session)
+
   const user = {
     name: "Jan",
     image: "",

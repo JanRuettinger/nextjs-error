@@ -24,27 +24,47 @@ export function UserSignupForm({ className, ...props }: UserSignupFormProps) {
     setIsPasswordVisible((prevState) => !prevState);
   }
 
-  const handleSignUp = async () => {
+  const handleSignUp = async (event: React.FormEvent) => {
+    event.preventDefault();
+    console.log("in handle signup")
     setIsLoading(true);
-    await supabase.auth.signUp({
+    const {data, error} = await supabase.auth.signUp({
       email,
       password,
       options: {
         emailRedirectTo: `${location.origin}/auth/callback`,
       },
     });
+
+    if (error) {
+        console.log(error.message);
+    }
+
+    console.log("signed up successful")
+    
+    // create user
+    console.log(data)
+
     setIsLoading(false);
-    router.refresh();
+    // router.refresh();
   };
 
   async function signInWithGitHub() {
     const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: "github",
-    });
+      provider: 'google',
+      options: {
+        queryParams: {
+          access_type: 'offline',
+          prompt: 'consent',
+        },
+      },
+    })
+    
 
     if (error) {
       console.log(error.message);
     }
+    // router.refresh();
   }
 
   return (
@@ -120,7 +140,7 @@ export function UserSignupForm({ className, ...props }: UserSignupFormProps) {
         ) : (
           <Icons.gitHub className='mr-2 h-4 w-4' />
         )}{" "}
-        Github
+        Google
       </Button>
     </div>
   );
